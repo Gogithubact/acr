@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkut@v2
+        uses: actions/checkout@v2
       
       - name: Login to ACR
         uses: docker/login-action@v3
