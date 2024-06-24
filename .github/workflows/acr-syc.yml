@@ -1,14 +1,32 @@
-name: My first workflow
+name: acr-login
 
-on: push
+on:
+  push:
+    branches: main
 
-jobs: 
-  first_job:
-    runs-on: ubuntu:latest
+jobs:
+  login:
+    runs-on: ubuntu-latest
     steps:
-    - name: Welcome message
-      run: echo "My first job"
-
-    - name: List of files
-      run: ls
+      - name: Check out repository
+        uses: actions/checkut@v2
       
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: devgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: prodgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
+
+     - name: Pull and Push images
+       run: |
+         docker pull devgo.azurecr.io/app1/kube-nginx-acr:v1
+         docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 prodgo.azurecr.io/app1/kube-nginx-acr:v1
+         docker push prodgo.azurecr.io/app1/kube-nginx-acr:v1
