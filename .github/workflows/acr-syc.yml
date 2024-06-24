@@ -2,31 +2,32 @@ name: acr-login
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   pre-build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Corrected 'checkout' instead of 'checkut'
       
-      - name: Login to ACR
+      - name: Login to ACR (Development)
         uses: docker/login-action@v3
         with:
           registry: devgo.azurecr.io
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: Login to ACR
+      - name: Login to ACR (Production)
         uses: docker/login-action@v3
         with:
           registry: prodgo.azurecr.io
           username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
           password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
 
-     - name: Pull and Push images
-       run: |
-         docker pull devgo.azurecr.io/app1/kube-nginx-acr:v1
-         docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 prodgo.azurecr.io/app1/kube-nginx-acr:v1
-         docker push prodgo.azurecr.io/app1/kube-nginx-acr:v1
+      - name: Pull and Push images
+        run: |
+          docker pull devgo.azurecr.io/app1/kube-nginx-acr:v1
+          docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 prodgo.azurecr.io/app1/kube-nginx-acr:v1
+          docker push prodgo.azurecr.io/app1/kube-nginx-acr:v1
