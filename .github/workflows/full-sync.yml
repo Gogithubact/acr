@@ -26,14 +26,12 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
           password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
 
-      - name: List images in Development ACR
-        id: list_images
-        run: |
-          docker images devgo.azurecr.io --format "{{.Repository}}:{{.Tag}}" | awk '{print $1}' | tail -n +2 | uniq
-
       - name: Sync images to Production ACR
         run: |
-          images="${{ steps.list_images.outputs.images }}"
+          # Pull all images from development ACR
+          images=$(docker images devgo.azurecr.io --format "{{.Repository}}:{{.Tag}}")
+          
+          # Push each image to production ACR
           for image in $images; do
             docker pull devgo.azurecr.io/$image
             docker tag devgo.azurecr.io/$image prodgo.azurecr.io/$image
