@@ -29,7 +29,7 @@ jobs:
       - name: List images in Development ACR
         id: list_images
         run: |
-          echo ::set-output name=images::$(az acr repository list --name devgo --output json)
+          docker images devgo.azurecr.io --format "{{.Repository}}:{{.Tag}}" | awk '{print $1}' | tail -n +2 | uniq
 
       - name: Sync images to Production ACR
         run: |
