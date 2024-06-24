@@ -1,0 +1,41 @@
+name: acr-sync
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      
+      - name: Login to Development ACR
+        uses: docker/login-action@v3
+        with:
+          registry: devgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      - name: Login to Production ACR
+        uses: docker/login-action@v3
+        with:
+          registry: prodgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
+
+      - name: List images in Development ACR
+        id: list_images
+        run: |
+          echo ::set-output name=images::$(az acr repository list --name devgo --output json)
+
+      - name: Sync images to Production ACR
+        run: |
+          images="${{ steps.list_images.outputs.images }}"
+          for image in $images; do
+            docker pull devgo.azurecr.io/$image
+            docker tag devgo.azurecr.io/$image prodgo.azurecr.io/$image
+            docker push prodgo.azurecr.io/$image
+          done
