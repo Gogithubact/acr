@@ -32,5 +32,5 @@ jobs:
           docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 prodgo.azurecr.io/app1/kube-nginx-acr:v1
           docker push prodgo.azurecr.io/app1/kube-nginx-acr:v1
           docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 devgo.azurecr.io/app1/kube-nginx-acr-pushed:v1
-          docker push devgo.azurecr.io/app1/kube-nginx-acr-pushed:v1
+          docker push devgo.azurecr.io/app1/kube-nginx-acr-pushed:v2
 
