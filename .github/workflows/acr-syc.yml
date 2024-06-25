@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
           password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
 
-      - name: Pull and Push images
+      - name: Pull and Push images #
         run: |
           docker pull devgo.azurecr.io/app1/kube-nginx-acr:v1
           docker tag devgo.azurecr.io/app1/kube-nginx-acr:v1 prodgo.azurecr.io/app1/kube-nginx-acr:v1
