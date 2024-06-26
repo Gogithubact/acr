@@ -23,7 +23,7 @@ jobs:
         id: prodgo_repo
         run: |
           echo "::set-output name=backend_prodgo_repository::$(yq '.backend.deployment.image.repository' < prodgo/version.yaml)"
-      - name: Login to ACR (Development)
+      - name: Login to ACR (Development) #added secrets
         uses: docker/login-action@v3
         with:
           registry: devgo.azurecr.io
