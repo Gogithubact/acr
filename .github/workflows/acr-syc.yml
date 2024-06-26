@@ -9,40 +9,40 @@ jobs:
   pre-build:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v2  # Corrected 'checkout' instead of 'checkut'
+      - name: Check out repository
+        uses: actions/checkout@v2  # Corrected 'checkout' instead of 'checkut'
         
-    # - name: Install yq
-    #   run: sudo apt-get install -y yq
+      - name: Install yq
+        run: sudo apt-get install -y yq
         
 		  
-    # - name: Extract tag and repository values from devgo/version.yaml
-    #   id: extract_admin_values
-    #   run: |
-    #     echo "::set-output name=backend_tag::$(yq eval '.backend.deployment.image.tag' devgo/version.yaml)"
-    #     echo "::set-output name=backend_repository::$(yq eval '.backend.deployment.image.repository' devgo/version.yaml)"
+      - name: Extract tag and repository values from devgo/version.yaml
+        id: extract_admin_values
+        run: |
+        echo "::set-output name=backend_tag::$(yq eval '.backend.deployment.image.tag' devgo/version.yaml)"
+        echo "::set-output name=backend_repository::$(yq eval '.backend.deployment.image.repository' devgo/version.yaml)"
           
-    # - name: Extract repository values from prodgo/version.yaml
-    #   id: prodgo_repo
-    #   run: |
-    #     echo "::set-output name=backend_prodgo_repository::$(yq eval '.backend.deployment.image.repository' prodgo/version.yaml)"
+      - name: Extract repository values from prodgo/version.yaml
+        id: prodgo_repo
+        run: |
+         echo "::set-output name=backend_prodgo_repository::$(yq eval '.backend.deployment.image.repository' prodgo/version.yaml)"
 	  
-    - name: Login to ACR (Development)
-      uses: docker/login-action@v3
-      with:
-        registry: devgo.azurecr.io
-        username: ${{ secrets.AZURE_CLIENT_ID }}
-        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+      - name: Login to ACR (Development)
+        uses: docker/login-action@v3
+        with:
+          registry: devgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-    - name: Login to ACR (Production)
-      uses: docker/login-action@v3
-      with:
-        registry: prodgo.azurecr.io
-        username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
-        password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
+      - name: Login to ACR (Production)
+        uses: docker/login-action@v3
+        with:
+          registry: prodgo.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
 
-    # - name: Pull and Push backend image to acr_xpq
-    #   run: |
-    #     docker pull ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
-    #     docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
-    #     docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+      - name: Pull and Push backend image to acr_xpq
+        run: |
+          docker pull ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+          docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+          docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
