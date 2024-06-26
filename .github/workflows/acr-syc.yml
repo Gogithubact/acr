@@ -30,8 +30,6 @@ jobs:
         run: |
            echo "::set-output name=backend_prodgo_repository::$(yq eval '.backend.deployment.image.repository' prodgo/version.yaml)"
 	  
-	  
-      
       - name: Login to ACR (Development)
         uses: docker/login-action@v3
         with:
