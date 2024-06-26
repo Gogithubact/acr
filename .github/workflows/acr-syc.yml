@@ -13,10 +13,12 @@ jobs:
         uses: actions/checkout@v2  # Corrected 'checkout' instead of 'checkut'
         
       - name: Install yq
+        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install python3-pip -y
           pip3 install yq
+
 		  
     # - name: Extract tag and repository values from devgo/version.yaml
     #   id: extract_admin_values
