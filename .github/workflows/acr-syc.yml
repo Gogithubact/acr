@@ -14,7 +14,8 @@ jobs:
         run: >
           sudo apt-get update
           sudo apt-get install python3-pip -y
-          pip3 install yq
+      - name: yq installation
+        run: pip3 install yq          
       - name: Extract tag and repository values from devgo/version.yaml
         id: extract_admin_values
         run: >
