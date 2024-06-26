@@ -16,8 +16,7 @@ jobs:
           pip3 install yq          
       - name: Extract tag and repository values from devgo/version.yaml
         id: extract_admin_values
-        run: |
-          yq read devgo/version.yaml '.backend.deployment.image.tag' > backend-tag.txt
+        run: cat devgo/version.yaml
       #    echo "::set-output name=backend_tag::$(cat /tmp/backend-version.json | jq -r '.backend.deployment.image.tag')"
 
       #   echo "::set-output name=backend_repository::$(yq eval '.backend.deployment.image.repository' devgo/version.yaml)"
