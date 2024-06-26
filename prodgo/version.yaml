@@ -1,4 +1,4 @@
-appl:
+app1:
   image:
     repository: prodgo.azurecr.io/app1/kube-nginx-acr
     tag: v1
