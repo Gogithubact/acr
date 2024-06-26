@@ -1,5 +1,4 @@
-backend:
-  deployment:
-    image:
-      repository: devgo.azurecr.io/app1/kube-nginx-acr
-      tag: v1
+appl:
+  kube-nginx-acr:
+    repository: devgo.azurecr.io/app1/kube-nginx-acr
+	  tag: v1
