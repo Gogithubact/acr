@@ -29,14 +29,19 @@ jobs:
           registry: devgo.azurecr.io
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: |
+          docker pull ${{ steps.extract_admin_values.outputs.backend_repository}}:${{ steps.extract_admin_values.outputs.backend_tag }}
+          docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
       - name: Login to ACR (Production)
         uses: docker/login-action@v3
         with:
           registry: prodgo.azurecr.io
           username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
           password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
-      - name: Pull and Push backend image to acr_xpq
         run: |
-          docker pull ${{ steps.extract_admin_values.outputs.backend_repository}}:${{ steps.extract_admin_values.outputs.backend_tag }}
-          docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
           docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+      # - name: Pull and Push backend image to acr_xpq
+      #   run: |
+      #     docker pull ${{ steps.extract_admin_values.outputs.backend_repository}}:${{ steps.extract_admin_values.outputs.backend_tag }}
+      #     docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+      #     docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
