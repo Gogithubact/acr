@@ -19,16 +19,16 @@ jobs:
           sudo apt-get install python3-pip -y
           pip3 install yq
 		  
-    #   - name: Extract tag and repository values from devgo/version.yaml
-    #     id: extract_admin_values
-    #     run: |
+    # - name: Extract tag and repository values from devgo/version.yaml
+    #   id: extract_admin_values
+    #   run: |
     #       echo "::set-output name=backend_tag::$(yq eval '.backend.deployment.image.tag' devgo/version.yaml)"
     #       echo "::set-output name=backend_repository::$(yq eval '.backend.deployment.image.repository' devgo/version.yaml)"
           
     #   - name: Extract repository values from prodgo/version.yaml
     #     id: prodgo_repo
     #     run: |
-    #        echo "::set-output name=backend_prodgo_repository::$(yq eval '.backend.deployment.image.repository' prodgo/version.yaml)"
+    #       echo "::set-output name=backend_prodgo_repository::$(yq eval '.backend.deployment.image.repository' prodgo/version.yaml)"
 	  
     #   - name: Login to ACR (Development)
     #     uses: docker/login-action@v3
