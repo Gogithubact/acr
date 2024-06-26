@@ -17,7 +17,7 @@ jobs:
       - name: Extract tag and repository values from devgo/version.yaml
         id: extract_admin_values
         run: |
-          yq read -j devgo/version.yaml > backend-version.json
+          yq read devgo/version.yaml '.backend.deployment.image.tag' > backend-tag.txt
       #    echo "::set-output name=backend_tag::$(cat /tmp/backend-version.json | jq -r '.backend.deployment.image.tag')"
 
       #   echo "::set-output name=backend_repository::$(yq eval '.backend.deployment.image.repository' devgo/version.yaml)"
