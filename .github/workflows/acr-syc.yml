@@ -17,12 +17,12 @@ jobs:
       - name: Extract tag and repository values from devgo/version.yaml
         id: extract_admin_values
         run: |
-          echo "::set-output name=backend_repository::$(yq '.app1.kube-nginx-acr.repository' < devgo/version.yaml)"
-          echo "::set-output name=backend_tag::$(yq '.app1.kube-nginx-acr.tag' < devgo/version.yaml)"
+          echo "::set-output name=backend_repository::$(yq '.app1.image.repository' < devgo/version.yaml)"
+          echo "::set-output name=backend_tag::$(yq '.app1.image.tag' < devgo/version.yaml)"
       - name: Extract repository values from prodgo/version.yaml
         id: prodgo_repo
         run: |
-          echo "::set-output name=backend_prodgo_repository::$(yq '.app1.kube-nginx-acr.repository' < prodgo/version.yaml)"
+          echo "::set-output name=backend_prodgo_repository::$(yq '.app1.image.repository' < prodgo/version.yaml)"
       - name: Login to ACR (Development) #added secrets
         uses: docker/login-action@v3
         with:
