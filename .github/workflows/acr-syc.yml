@@ -1,10 +1,19 @@
 ---
-  name: acr-push and pull
-  on:
-    push:
-      branches:
-        - main
-  jobs:
+name: ACR XPD to XPQ
+
+on:
+ workflow_dispatch:
+    inputs:
+      trigger:
+        description: 'Trigger the workflow manually'
+        required: true
+        default: 'manual'
+
+ push:
+    branches:
+       - feature/acr-sync
+
+jobs:
     ACR-sync:
       runs-on: ubuntu-latest
       steps:
