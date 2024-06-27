@@ -3,7 +3,9 @@
   on:
     push:
       branches:
-        - main
+        - feature/acr
+    workflow_dispatch:
+      
   jobs:
     ACR-sync:
       runs-on: ubuntu-latest
