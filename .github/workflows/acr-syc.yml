@@ -5,7 +5,7 @@
       branches:
         - main
   jobs:
-    pre-build:
+    ACR-sync:
       runs-on: ubuntu-latest
       steps:
         - name: Check out repository
