@@ -11,7 +11,7 @@ on:
 
  push:
     branches:
-       - feature/acr-sync
+       - feature/acr
 
 jobs:
     ACR-sync:
