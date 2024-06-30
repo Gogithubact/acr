@@ -51,7 +51,7 @@ jobs:
       - name: Save Docker image
         run: docker save --output image.tar "${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}"
       - name: Upload Docker image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: /tmp/image.tar
@@ -83,7 +83,7 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID_PRD }}
           password: ${{ secrets.AZURE_CLIENT_SECRET_PRD }}
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: /tmp
