@@ -11,7 +11,7 @@ on:
 
  push:
     branches:
-       - feature/acr-sync
+       - main
 
 jobs:
     ACR-sync:
@@ -49,3 +49,12 @@ jobs:
             docker pull ${{ steps.extract_admin_values.outputs.backend_repository}}:${{ steps.extract_admin_values.outputs.backend_tag }}
             docker tag ${{ steps.extract_admin_values.outputs.backend_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }} ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
             docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+         # Archive and persist the Docker image
+        - name: Save Docker image
+          run: docker save --output image.tar "${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}"
+        - name: Upload Docker image
+          uses: actions/upload-artifact@v2
+          with:
+            name: docker-image
+            path: image.tar
+            retention-days: 1
