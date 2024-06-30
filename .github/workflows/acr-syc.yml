@@ -59,6 +59,7 @@ jobs:
 
   Prod-pull:
     runs-on: ubuntu-latest
+    needs: ACR-sync
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
