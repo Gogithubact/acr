@@ -35,7 +35,7 @@ jobs:
         - name: Login to ACR (Development) #added secrets
           uses: docker/login-action@v3
           with:
-            registry: devgo.azurecr.io
+            registry: devgoo.azurecr.io
             username: ${{ secrets.AZURE_CLIENT_ID }}
             password: ${{ secrets.AZURE_CLIENT_SECRET }}
         - name: Login to ACR (Production)
