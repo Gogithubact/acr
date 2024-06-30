@@ -1,4 +1,4 @@
 app1:
   image:
-    repository: devgo.azurecr.io/app1/kube-nginx-acr
+    repository: devgoo.azurecr.io/app1/kube-nginx-acr
     tag: v1
