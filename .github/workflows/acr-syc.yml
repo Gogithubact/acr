@@ -92,4 +92,4 @@ jobs:
         run: |
           docker load --input /tmp/image.tar
           docker image ls -a    
-        #docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+          docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
