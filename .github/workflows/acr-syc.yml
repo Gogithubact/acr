@@ -88,7 +88,8 @@ jobs:
           name: docker-image
           path: image.tar
           retention-days: 1
-      - name: Push backend image to acr_xpq
+      - name: Load image
         run: |
-          docker images 
-          # docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
+          docker load --input /tmp/myimage.tar
+          docker image ls -a    
+          docker push ${{ steps.prodgo_repo.outputs.backend_prodgo_repository }}:${{ steps.extract_admin_values.outputs.backend_tag }}
